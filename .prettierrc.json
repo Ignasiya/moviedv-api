@@ -1,0 +1,16 @@
+{
+  "jsxSingleQuote": true,
+  "max-len": ["error", 140, 2],
+  "printWidth": 100,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": false,
+  "singleQuote": true,
+  "quoteProps": "as-needed",
+  "bracketSpacing": true,
+  "arrowParens": "avoid",
+  "endOfLine": "lf",
+  "spaceBeforeFunctionParen": true,
+  "trailingComma": "none",
+  "react-hooks/rules-of-hooks": "error"
+}

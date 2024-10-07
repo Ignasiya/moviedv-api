@@ -4,7 +4,6 @@ import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import eslintConfigPrettier from 'eslint-config-prettier'
-import prettierPlugin from 'eslint-plugin-prettier'
 import eslintJest from 'eslint-plugin-jest'
 import html from 'eslint-plugin-html'
 import importPlugin from 'eslint-plugin-import'
@@ -29,7 +28,9 @@ export default [
       }
     },
     settings: {
-      react: { version: '18.3' },
+      react: {
+        version: 'detect'
+      },
       'import/resolver': {
         node: {
           extensions: ['.js', '.jsx'],
@@ -41,7 +42,6 @@ export default [
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      prettier: prettierPlugin,
       jest: eslintJest,
       html,
       import: importPlugin,

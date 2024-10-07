@@ -1,3 +1,3 @@
-# React + Vite Application Todo
+# React Application Movie Database API
 
-## [Vercel Хостинг](https://react-todo-smoky-nu.vercel.app/)
+## [Vercel Хостинг]()

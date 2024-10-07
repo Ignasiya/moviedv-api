@@ -10,15 +10,18 @@
     "preview": "vite preview",
     "test": "vitest",
     "lint:fix": "eslint ./src --fix",
-    "format": "prettier --write ./src"
+    "format": "prettier --write ./src",
+    "prepare": "husky"
   },
   "lint-staged": {
-    "**/*.{js,jsx}": [
+    "**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
-      "prettier --write"
+      "prettier --write",
+      "git add"
     ],
-    "**/*.{css,scss,md}": [
-      "prettier --write"
+    "**/*.{json,css,md}": [
+      "prettier --write",
+      "git add"
     ]
   },
   "dependencies": {

@@ -3,7 +3,7 @@ import { Flex, Alert } from 'antd'
 
 export default function AlertError({ message = '' }) {
   return (
-    <Flex className='min-h-screen' align='center'>
+    <Flex align='center'>
       <Alert className='w-full' message='Error' description={message} type='error' showIcon />
     </Flex>
   )

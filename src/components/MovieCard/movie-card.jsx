@@ -29,7 +29,7 @@ export default function MovieCard({ movie = {} }) {
       }
     >
       <Meta
-        title={<h3>{title}</h3>}
+        title={<h3 className='max-w-[228px] truncate'>{title}</h3>}
         description={
           <div className='max-w-[228px] flex flex-col gap-2'>
             <p>{formattedDate}</p>
@@ -40,7 +40,7 @@ export default function MovieCard({ movie = {} }) {
                 </Tag>
               ))}
             </div>
-            <p className='truncated-text text-xs leading-5 text-black'>
+            <p className='text-xs leading-5 text-black'>
               {overview ? truncateText(overview) : 'There is no description'}
             </p>
           </div>

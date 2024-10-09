@@ -13,5 +13,14 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: './src/setupTests.js'
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.themoviedb.org',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, '')
+      }
+    }
   }
 })

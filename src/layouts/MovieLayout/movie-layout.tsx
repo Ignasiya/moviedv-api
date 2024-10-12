@@ -15,8 +15,8 @@ export default function MovieLayout() {
 
   const debouncedSearch = useRef(
     debounce((query, page) => {
-      dispatch({ type: 'loading', loading: true })
       dispatch({ type: 'error', error: '' })
+      dispatch({ type: 'loading', loading: true })
 
       loadMovies(query, page)
         .then(moviesResponse => {

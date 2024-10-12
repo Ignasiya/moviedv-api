@@ -1,4 +1,4 @@
-export function truncateText(text, maxLength = 210) {
+export function truncateText(text: string, maxLength: number = 210) {
   if (text.length <= maxLength) {
     return text
   }

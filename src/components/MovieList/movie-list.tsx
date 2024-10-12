@@ -1,16 +1,20 @@
 import { Row, Col, Pagination } from 'antd'
-import PropTypes from 'prop-types'
 import MovieCard from '@/components/MovieCard'
+import Movie from '@/types/Movie'
 
-export default function MovieList({ movies = {}, onPagination }) {
+interface MovieListProps {
+  movies: { results: Movie[]; page: number; total_pages: number }
+  onPagination: (page: number) => void
+}
+
+export default function MovieList({ movies, onPagination }: MovieListProps) {
   return (
     <>
       <Row gutter={[36, 36]} justify='center'>
         {movies.results.map(movie => {
-          const { id, ...movieInfo } = movie
           return (
-            <Col md={24} lg={12} key={id}>
-              <MovieCard movie={movieInfo} />
+            <Col md={24} lg={12} key={movie.id}>
+              <MovieCard movie={movie} />
             </Col>
           )
         })}
@@ -25,9 +29,4 @@ export default function MovieList({ movies = {}, onPagination }) {
       />
     </>
   )
-}
-
-MovieList.propTypes = {
-  movies: PropTypes.object,
-  onPagination: PropTypes.func
 }

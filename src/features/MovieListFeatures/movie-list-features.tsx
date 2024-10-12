@@ -1,12 +1,26 @@
-import PropTypes from 'prop-types'
 import MovieList from '@/components/MovieList'
 import AlertError from '@/components/AlertError'
 import Loader from '@/components/Loader'
 import { Flex, Typography } from 'antd'
+import Movie from '@/types/Movie'
 
 const { Text } = Typography
 
-export default function MovieListFeatures({ movies, isLoading, error, query, onPagination }) {
+interface MovieListFeaturesProps {
+  movies: { results: Movie[]; page: number; total_pages: number }
+  isLoading: boolean
+  error: string
+  query: string
+  onPagination: (page: number) => void
+}
+
+export default function MovieListFeatures({
+  movies,
+  isLoading,
+  error,
+  query,
+  onPagination
+}: MovieListFeaturesProps) {
   return isLoading ? (
     <Loader />
   ) : error ? (
@@ -20,12 +34,4 @@ export default function MovieListFeatures({ movies, isLoading, error, query, onP
       </Text>
     </Flex>
   )
-}
-
-MovieListFeatures.propTypes = {
-  movies: PropTypes.object,
-  onPagination: PropTypes.func,
-  isLoading: PropTypes.bool,
-  query: PropTypes.string,
-  error: PropTypes.string
 }

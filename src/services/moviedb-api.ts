@@ -3,9 +3,9 @@ const API_KEY =
 
 const BASE_URL = 'https://api.themoviedb.org/3/search/movie?'
 
-async function fetchMovies(query, page) {
+async function fetchMovies(query: string, page: number) {
   const response = await fetch(
-    `${BASE_URL}query=${encodeURIComponent(query)}&language=en-US&page=${page}`,
+    `${BASE_URL}query=${encodeURIComponent(query)}&include_adult=false&language=en-US&page=${page}`,
     {
       method: 'GET',
       headers: {
@@ -23,7 +23,7 @@ async function fetchMovies(query, page) {
   return movies
 }
 
-export async function loadMovies(query, page) {
+export async function loadMovies(query: string, page: number) {
   const movies = await fetchMovies(query, page)
   return movies
 }

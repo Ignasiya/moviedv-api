@@ -1,11 +1,15 @@
 import { Card, Tag } from 'antd'
 import { format } from 'date-fns'
 import { truncateText } from '@/utils'
-import PropTypes from 'prop-types'
+import Movie from '@/types/Movie'
 
 const { Meta } = Card
 
-export default function MovieCard({ movie = {} }) {
+interface MovieCardProps {
+  movie: Movie
+}
+
+export default function MovieCard({ movie }: MovieCardProps) {
   const { title, poster_path, release_date, genre_ids, overview } = movie
 
   const releaseDate = release_date ? new Date(release_date) : null
@@ -48,14 +52,4 @@ export default function MovieCard({ movie = {} }) {
       />
     </Card>
   )
-}
-
-MovieCard.propTypes = {
-  movie: PropTypes.shape({
-    title: PropTypes.string,
-    release_date: PropTypes.string,
-    genre_ids: PropTypes.arrayOf(PropTypes.number),
-    overview: PropTypes.string,
-    poster_path: PropTypes.string
-  })
 }

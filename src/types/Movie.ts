@@ -1,5 +1,5 @@
 export default interface Movie {
-  id: number
+  readonly id: number
   title: string
   poster_path: string | null
   release_date: string

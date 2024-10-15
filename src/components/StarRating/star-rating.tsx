@@ -3,15 +3,17 @@ import StarRatingItem from './star-rating-item'
 
 interface StarRatingProps {
   initial?: number
+  onRateMovie: (rating: number) => void
 }
 
-export default function StarRating({ initial = 0 }: StarRatingProps) {
+export default function StarRating({ onRateMovie, initial = 0 }: StarRatingProps) {
   const [rating, setRating] = useState<number>(initial)
   const [hoverRating, setHoverRating] = useState<number | null>(null)
 
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newRating = +event.target.value
     setRating(newRating)
+    onRateMovie(newRating)
   }
 
   return (

@@ -1,9 +1,13 @@
-import { Card, Tag } from 'antd'
+import { Card, Tag, Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 import { format } from 'date-fns'
 import { truncateText } from '@/utils'
 import Movie from '@/types/Movie'
 import Rating from '@/components/Rating'
 import StarRating from '@/components/StarRating'
+import { CheckGenres } from '@/context/GenreContext'
+import { CheckGuestContext } from '@/context/GuestSessionContext'
+import { rateMovie } from '@/services/moviedb-api'
 
 const { Meta } = Card
 
@@ -12,8 +16,17 @@ interface MovieCardProps {
 }
 
 export default function MovieCard({ movie }: MovieCardProps) {
-  const { title, poster_path, release_date, vote_average, genre_ids, overview } = movie
+  const { id, title, poster_path, release_date, vote_average, genre_ids, overview } = movie
+  const { genres, error, isLoading } = CheckGenres()
+  const { sessionKey } = CheckGuestContext()
 
+  const handleRateMovie = (rating: number) => {
+    if (sessionKey) {
+      rateMovie(id, rating, sessionKey)
+    }
+  }
+
+  const genresMovie = genre_ids.map(genreId => genres.find(genre => genre.id === genreId))
   const releaseDate = release_date ? new Date(release_date) : null
   const formattedDate = releaseDate ? format(releaseDate, 'MMMM d, yyyy') : 'Unknown Date'
 
@@ -42,18 +55,25 @@ export default function MovieCard({ movie }: MovieCardProps) {
               <Rating rating={vote_average} />
             </div>
             <p className='ml-16 lg:ml-0'>{formattedDate}</p>
-            <div className='ml-16 lg:ml-0'>
-              {genre_ids.map((genre, index) => (
-                <Tag className='text-gray-400' key={index}>
-                  {genre}
-                </Tag>
-              ))}
+            <div className='ml-16 lg:ml-0 flex flex-wrap gap-y-1'>
+              {isLoading ? (
+                <Spin indicator={<LoadingOutlined spin />} size='small' />
+              ) : error ? (
+                <p>Error: {error}</p>
+              ) : (
+                genresMovie &&
+                genresMovie.map(genre => (
+                  <Tag className='text-gray-400' key={genre?.id}>
+                    {genre?.name}
+                  </Tag>
+                ))
+              )}
             </div>
-            <p className='text-xs leading-5 text-black'>
+            <p className='text-xs leading-5 text-black w-[339px] lg:w-auto'>
               {overview ? truncateText(overview) : 'There is no description'}
             </p>
             <div className='mt-auto ml-auto'>
-              <StarRating />
+              <StarRating onRateMovie={handleRateMovie} />
             </div>
           </div>
         }

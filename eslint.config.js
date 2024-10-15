@@ -24,7 +24,8 @@ export default [
         ...globals.browser,
         ...globals.jest,
         vi: 'readonly',
-        __dirname: 'readonly'
+        __dirname: 'readonly',
+        global: 'readonly'
       }
     },
     settings: {

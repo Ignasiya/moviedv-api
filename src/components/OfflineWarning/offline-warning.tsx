@@ -1,6 +1,6 @@
 import { Result, Flex } from 'antd'
 
-export default function Offline() {
+export default function OfflineWarning() {
   return (
     <Flex justify='center' align='center'>
       <Result

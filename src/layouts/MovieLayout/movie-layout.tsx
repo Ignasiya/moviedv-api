@@ -5,7 +5,7 @@ import { Online, Offline } from 'react-detect-offline'
 import MovieListFeatures from '@/features/MovieListFeatures'
 import { debounce } from 'lodash'
 import { Input } from 'antd'
-import { initialState, moviesReducer } from './moviesReducer'
+import { initialState, moviesReducer } from '@/reducer/moviesReducer'
 import { ErrorBoundary } from 'react-error-boundary'
 import ErrorFallback from '@/components/ErrorFallback'
 

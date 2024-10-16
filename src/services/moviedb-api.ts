@@ -40,8 +40,7 @@ async function fetchMovies(query: string, page: number) {
     headers: getHeaders()
   })
 
-  const movies = await handleResponse(response)
-  return movies
+  return await response.json()
 }
 
 async function fetchGenres() {

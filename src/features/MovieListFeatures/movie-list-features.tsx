@@ -10,7 +10,6 @@ interface MovieListFeaturesProps {
   movies: { results: Movie[]; page: number; total_pages: number }
   isLoading: boolean
   error: string
-  query: string
   onPagination: (page: number) => void
 }
 
@@ -18,14 +17,13 @@ export default function MovieListFeatures({
   movies,
   isLoading,
   error,
-  query,
   onPagination
 }: MovieListFeaturesProps) {
   return isLoading ? (
     <Loader />
   ) : error ? (
     <AlertError message={error} />
-  ) : movies.results?.length && query ? (
+  ) : movies.results?.length ? (
     <MovieList movies={movies} onPagination={onPagination} />
   ) : (
     <Flex align='center' justify='center'>

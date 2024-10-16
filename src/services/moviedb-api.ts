@@ -17,14 +17,14 @@ function getHeaders() {
   }
 }
 
-async function fetchGuestSession(): Promise<string> {
+async function fetchGuestSession() {
   const response = await fetch(`${BASE_URL}/authentication/guest_session/new`, {
     method: 'GET',
     headers: getHeaders()
   })
 
   const session = await handleResponse(response)
-  return session.guest_session_id
+  return session
 }
 
 async function fetchMovies(query: string, page: number) {
@@ -86,7 +86,6 @@ async function fetchRatedMovies(guestSessionId: string, page: number = 1) {
       headers: getHeaders()
     }
   )
-
   const ratedMovies = await handleResponse(response)
   return ratedMovies
 }

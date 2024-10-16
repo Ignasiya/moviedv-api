@@ -31,8 +31,10 @@ export default function MovieLayout() {
   }
 
   useEffect(() => {
-    if (search) {
+    if (search.trim()) {
       debouncedSearch(search, page)
+    } else {
+      dispatch({ type: 'movies', movies: { results: [], total_pages: 0, page: 0 } })
     }
   }, [search, page, debouncedSearch])
 
@@ -45,22 +47,19 @@ export default function MovieLayout() {
   }
 
   return (
-    <main className='container h-full mx-auto max-w-lg lg:px-10 lg:py-5 p-3 bg-white'>
-      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => handleResetSearch}>
-        <Input
-          className='mb-9 h-10 text-base'
-          placeholder='Type to search...'
-          value={search}
-          onChange={handleSearch}
-        />
-        <MovieListFeatures
-          movies={movies}
-          isLoading={isLoading}
-          error={error}
-          query={search}
-          onPagination={onPagination}
-        />
-      </ErrorBoundary>
-    </main>
+    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => handleResetSearch}>
+      <Input
+        className='mb-9 h-10 text-base'
+        placeholder='Type to search...'
+        value={search}
+        onChange={handleSearch}
+      />
+      <MovieListFeatures
+        movies={movies}
+        isLoading={isLoading}
+        error={error}
+        onPagination={onPagination}
+      />
+    </ErrorBoundary>
   )
 }

@@ -6,4 +6,5 @@ export default interface Movie {
   genre_ids: number[]
   overview: string
   vote_average: number
+  rating: number
 }

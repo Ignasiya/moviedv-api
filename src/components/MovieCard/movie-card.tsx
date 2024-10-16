@@ -16,9 +16,9 @@ interface MovieCardProps {
 }
 
 export default function MovieCard({ movie }: MovieCardProps) {
-  const { id, title, poster_path, release_date, vote_average, genre_ids, overview } = movie
+  const { id, title, poster_path, release_date, vote_average, genre_ids, overview, rating } = movie
   const { genres, error, isLoading } = CheckGenres()
-  const { sessionKey } = CheckGuestContext()
+  const sessionKey = CheckGuestContext()
 
   const handleRateMovie = (rating: number) => {
     if (sessionKey) {
@@ -73,7 +73,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
               {overview ? truncateText(overview) : 'There is no description'}
             </p>
             <div className='mt-auto ml-auto'>
-              <StarRating onRateMovie={handleRateMovie} />
+              <StarRating onRateMovie={handleRateMovie} initial={rating} />
             </div>
           </div>
         }

@@ -5,12 +5,7 @@ interface GuestSessionContextProps {
   children?: React.ReactNode
 }
 
-interface GuestSessionContextType {
-  sessionKey: string
-  errorSession: string
-}
-
-const GuestContext = createContext<GuestSessionContextType | undefined>(undefined)
+const GuestContext = createContext<string | undefined>(undefined)
 
 export function CheckGuestContext() {
   const context = useContext(GuestContext)
@@ -22,21 +17,33 @@ export function CheckGuestContext() {
 
 export function GuestProvider({ children }: GuestSessionContextProps) {
   const [sessionKey, setSessionKey] = useState<string>('')
-  const [errorSession, setError] = useState<string>('')
 
   useEffect(() => {
+    const storedSession = localStorage.getItem('guest_session')
+    if (storedSession) {
+      const { guest_session_id, expires_at } = JSON.parse(storedSession)
+
+      if (new Date() < new Date(expires_at)) {
+        setSessionKey(guest_session_id)
+        return
+      }
+    }
+
     createGuestSession()
-      .then(key => {
-        setSessionKey(key)
-        setError('')
+      .then(session => {
+        const { guest_session_id, expires_at } = session
+
+        const sessionData = {
+          guest_session_id,
+          expires_at
+        }
+        localStorage.setItem('guest_session', JSON.stringify(sessionData))
+        setSessionKey(guest_session_id)
       })
       .catch(error => {
-        setError('Failed to create guest session')
         console.error('Failed to create guest session:', error)
       })
   }, [])
 
-  return (
-    <GuestContext.Provider value={{ sessionKey, errorSession }}>{children}</GuestContext.Provider>
-  )
+  return <GuestContext.Provider value={sessionKey}>{children}</GuestContext.Provider>
 }

@@ -40,7 +40,8 @@ async function fetchMovies(query: string, page: number) {
     headers: getHeaders()
   })
 
-  return await response.json()
+  const movies = await handleResponse(response)
+  return movies
 }
 
 async function fetchGenres() {
@@ -85,8 +86,8 @@ async function fetchRatedMovies(guestSessionId: string, page: number = 1) {
       headers: getHeaders()
     }
   )
-  const ratedMovies = await handleResponse(response)
-  return ratedMovies
+
+  return await response.json()
 }
 
 export async function createGuestSession() {

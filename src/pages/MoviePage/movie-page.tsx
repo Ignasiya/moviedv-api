@@ -25,7 +25,7 @@ export default function MoviePage() {
       <Online>
         <GenreProvider>
           <GuestProvider>
-            <main className='container h-full mx-auto max-w-lg lg:px-10 lg:py-5 p-3 bg-white'>
+            <main className='container min-h-[96vh] mx-auto max-w-lg lg:px-10 lg:py-5 p-3 bg-white rounded-3xl'>
               <Tabs defaultActiveKey='1' items={items} centered destroyInactiveTabPane />
             </main>
           </GuestProvider>
